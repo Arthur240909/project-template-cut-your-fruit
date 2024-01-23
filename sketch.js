@@ -16,7 +16,8 @@ function preload(){
   fruit4 = loadImage("fruit4.png");
   gameOverImage = loadImage("gameover.png")
 
-  //carregue o som aqui
+  gameOverSound=loadSound("gameover.mp3")
+  knifeSwooshSound=loadSound("knifeSwoosh.mp3")
 }
 
 
@@ -55,13 +56,16 @@ function draw() {
     // Aumenta a pontuação se a espada tocar na fruta
     if(fruitGroup.isTouching(knife)){
       fruitGroup.destroyEach();
+      
+      knifeSwooshSound.play();
+      score=score+2;
     }
     else
     {
       // Vá para o estado final se a espada tocar o inimigo
       if(monsterGroup.isTouching(knife)){
         gameState=END;
-        
+        gameOverSound.play();
         //adicione o som do gameover (fim de jogo) aqui
         
         fruitGroup.destroyEach();
